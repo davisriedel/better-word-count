@@ -1,6 +1,6 @@
 import { TFile, normalizePath } from "obsidian";
 import type BetterWordCount from "src/main";
-import { getCharacterCount, getCitationCount, getFootnoteCount, getPageCount, getSentenceCount, getWordCount } from "src/utils/StatUtils";
+import { getCharacterCount, getCitationCount, getFootnoteCount, getPageCount, getSentenceCount, getWordCount, cleanComments, cleanFrontmatter } from "src/utils/StatUtils";
 
 export default class BetterWordCountApi {
   private plugin: BetterWordCount;
@@ -36,7 +36,13 @@ export default class BetterWordCountApi {
 
     // Check if it exists and is of the correct type
     if (file instanceof TFile) {
-      const text = await this.plugin.app.vault.cachedRead(file);
+      let text = await this.plugin.app.vault.cachedRead(file);
+      if (this.plugin.settings.excludeComments) {
+        text = cleanComments(text);
+      }
+      if (this.plugin.settings.excludeFrontmatter) {
+        text = cleanFrontmatter(text);
+      }
       return countFunc(text);
     }
 

@@ -123,7 +123,7 @@ export default class StatsManager {
     const currentCitations = getCitationCount(text);
     const currentFootnotes = getFootnoteCount(text);
     const currentPages = getPageCount(text, this.plugin.settings.pageWords);
-    
+
     if (
       this.vaultStats.history.hasOwnProperty(this.today) &&
       this.today === moment().format("YYYY-MM-DD")
@@ -143,7 +143,7 @@ export default class StatsManager {
           currentSentences - modFiles[fileName].citations.current;
         this.vaultStats.history[this.today].totalPages +=
           currentPages - modFiles[fileName].pages.current;
-         
+
         modFiles[fileName].words.current = currentWords;
         modFiles[fileName].characters.current = currentCharacters;
         modFiles[fileName].sentences.current = currentSentences;
@@ -280,7 +280,7 @@ export default class StatsManager {
     }
     return sentence;
   }
-  
+
   private async calcTotalPages(): Promise<number> {
     let pages = 0;
 
@@ -331,7 +331,6 @@ export default class StatsManager {
     return this.vaultStats.history[this.today].sentences;
   }
 
-
   public getDailyFootnotes(): number {
     return this.vaultStats.history[this.today].footnotes;
   }
@@ -361,7 +360,7 @@ export default class StatsManager {
     if (!this.vaultStats) return await this.calcTotalSentences();
     return this.vaultStats.history[this.today].totalSentences;
   }
-  
+
   public async getTotalFootnotes(): Promise<number> {
     if (!this.vaultStats) return await this.calcTotalFootnotes();
     return this.vaultStats.history[this.today].totalFootnotes;

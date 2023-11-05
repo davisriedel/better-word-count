@@ -130,7 +130,7 @@ class SectionWordCountEditorPlugin implements PluginValue {
   }
 
   calculateLineCounts(state: EditorState, plugin: BetterWordCount) {
-    const stripComments = plugin.settings.countComments;
+    const stripComments = plugin.settings.excludeComments;
     let docStr = state.doc.toString();
 
     if (stripComments) {
@@ -158,7 +158,7 @@ class SectionWordCountEditorPlugin implements PluginValue {
 
   update(update: ViewUpdate) {
     const plugin = update.view.state.field(pluginField);
-    const { displaySectionCounts, countComments: stripComments } = plugin.settings;
+    const { displaySectionCounts, excludeComments: stripComments } = plugin.settings;
     let didSettingsChange = false;
 
     if (this.lineCounts.length && !displaySectionCounts) {

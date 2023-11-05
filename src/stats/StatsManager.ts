@@ -11,6 +11,7 @@ import {
   getCitationCount,
   getFootnoteCount,
   cleanComments,
+  cleanFrontmatter,
 } from "../utils/StatUtils";
 
 export default class StatsManager {
@@ -109,8 +110,11 @@ export default class StatsManager {
   }
 
   public async change(text: string) {
-    if (this.plugin.settings.countComments) {
+    if (this.plugin.settings.excludeComments) {
       text = cleanComments(text);
+    }
+    if (this.plugin.settings.excludeFrontmatter) {
+      text = cleanFrontmatter(text);
     }
     const fileName = this.workspace.getActiveFile().path;
     const currentWords = getWordCount(text);

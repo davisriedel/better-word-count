@@ -8,6 +8,7 @@ import {
   getFootnoteCount,
   getPageCount,
   cleanComments,
+  cleanFrontmatter,
 } from "src/utils/StatUtils";
 import { debounce } from "obsidian";
 
@@ -45,8 +46,11 @@ export default class StatusBar {
     const sb = this.plugin.settings.statusBar;
     let display = "";
 
-    if (this.plugin.settings.countComments) {
+    if (this.plugin.settings.excludeComments) {
       text = cleanComments(text);
+    }
+    if (this.plugin.settings.excludeFrontmatter) {
+      text = cleanFrontmatter(text);
     }
 
     for (let i = 0; i < sb.length; i++) {

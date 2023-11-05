@@ -39,7 +39,8 @@ export const BLANK_SB_ITEM: StatusBarItem = {
 export interface BetterWordCountSettings {
   statusBar: StatusBarItem[];
   altBar: StatusBarItem[];
-  countComments: boolean;
+  excludeComments: boolean;
+  excludeFrontmatter: boolean;
   collectStats: boolean;
   pageWords: number;
   displaySectionCounts: boolean;
@@ -74,7 +75,8 @@ export const DEFAULT_SETTINGS: BetterWordCountSettings = {
       },
     },
   ],
-  countComments: false,
+  excludeComments: true,
+  excludeFrontmatter: true,
   collectStats: false,
   displaySectionCounts: false,
   pageWords: 300,

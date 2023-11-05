@@ -31,9 +31,19 @@ export default class BetterWordCountSettingsTab extends PluginSettingTab {
       .setName("Don't Count Comments")
       .setDesc("Turn on if you don't want markdown comments to be counted.")
       .addToggle((cb: ToggleComponent) => {
-        cb.setValue(this.plugin.settings.countComments);
+        cb.setValue(this.plugin.settings.excludeComments);
         cb.onChange(async (value: boolean) => {
-          this.plugin.settings.countComments = value;
+          this.plugin.settings.excludeComments = value;
+          await this.plugin.saveSettings();
+        });
+      });
+    new Setting(containerEl)
+      .setName("Don't Count Frontmatter")
+      .setDesc("Turn on if you don't want frontmatter to be counted.")
+      .addToggle((cb: ToggleComponent) => {
+        cb.setValue(this.plugin.settings.excludeFrontmatter);
+        cb.onChange(async (value: boolean) => {
+          this.plugin.settings.excludeFrontmatter = value;
           await this.plugin.saveSettings();
         });
       });
